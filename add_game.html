@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>لوحة تحكم محمد خالد - إضافة ألعاب PS4</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 2rem;
+      direction: rtl;
+      text-align: center;
+    }
+    #loginDiv, #formDiv {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input[type="text"], input[type="password"], input[type="url"] {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 0.5rem 0 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .success, .error {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginDiv">
+    <h2>تسجيل الدخول - لوحة تحكم محمد خالد</h2>
+    <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور" />
+    <button onclick="login()">دخول</button>
+    <p id="loginMsg" class="error"></p>
+  </div>
+
+  <div id="formDiv" style="display:none;">
+    <h2>إضافة لعبة جديدة</h2>
+    <input type="text" id="name" placeholder="اسم اللعبة" required />
+    <input type="url" id="image" placeholder="رابط صورة الغلاف" required />
+    <input type="text" id="size" placeholder="الحجم (مثلاً 35GB)" required />
+    <input type="text" id="compatibility" placeholder="التوافق (مثلاً PS4 9.00)" required />
+    <input type="url" id="link" placeholder="رابط تحميل اللعبة" required />
+    <input type="url" id="extraLink" placeholder="رابط إضافي (اختياري)" />
+    <button onclick="addGame()">إضافة اللعبة</button>
+    <p id="msg" class=""></p>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC5rSGvHGpCELoCptE8QCefAvSuBRj1fNM",
+      authDomain: "ps4-230b7.firebaseapp.com",
+      projectId: "ps4-230b7",
+      storageBucket: "ps4-230b7.firebasestorage.app",
+      messagingSenderId: "226327627441",
+      appId: "1:226327627441:web:00d02792886a006eea0490",
+      measurementId: "G-LFRT9SFR1J"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const loginDiv = document.getElementById('loginDiv');
+    const formDiv = document.getElementById('formDiv');
+    const passwordInput = document.getElementById('passwordInput');
+    const loginMsg = document.getElementById('loginMsg');
+    const msg = document.getElementById('msg');
+
+    function login() {
+      const pwd = passwordInput.value;
+      if (pwd === 'admin123') {
+        loginDiv.style.display = 'none';
+        formDiv.style.display = 'block';
+        loginMsg.textContent = '';
+      } else {
+        loginMsg.textContent = 'كلمة المرور خاطئة، حاول مرة أخرى.';
+      }
+    }
+
+    function addGame() {
+      const name = document.getElementById('name').value.trim();
+      const image = document.getElementById('image').value.trim();
+      const size = document.getElementById('size').value.trim();
+      const compatibility = document.getElementById('compatibility').value.trim();
+      const link = document.getElementById('link').value.trim();
+      const extraLink = document.getElementById('extraLink').value.trim();
+
+      if (!name || !image || !size || !compatibility || !link) {
+        msg.textContent = 'يرجى تعبئة جميع الحقول المطلوبة.';
+        msg.className = 'error';
+        return;
+      }
+
+      db.collection('games').add({
+        name,
+        image,
+        size,
+        compatibility,
+        link,
+        extraLink // الرابط الإضافي
+      }).then(() => {
+        msg.textContent = 'تم إضافة اللعبة بنجاح!';
+        msg.className = 'success';
+        document.getElementById('name').value = '';
+        document.getElementById('image').value = '';
+        document.getElementById('size').value = '';
+        document.getElementById('compatibility').value = '';
+        document.getElementById('link').value = '';
+        document.getElementById('extraLink').value = ''; // مسح الحقل بعد الإضافة
+      }).catch(error => {
+        msg.textContent = 'حدث خطأ أثناء الإضافة: ' + error.message;
+        msg.className = 'error';
+      });
+    }
+  </script>
+
+</body>
+</html>
