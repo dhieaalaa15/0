@@ -176,7 +176,7 @@
     <div id="welcome-screen">
       <h1>🦴 أبطال العلوم 🧠</h1>
       <div class="by-tag">✨ بواسطة مبرمج ضياء ✨</div>
-      <p>أهلاً بك في الاختبار التفاعلي (10 أسئلة هيكلي + 10 أسئلة عصبي) - سادس ابتدائي!<br>مع شهادة تقدير نهائية وصوت التصفيق الأصلي الدقيق الذي أرسلته 👏</p>
+      <p>أهلاً بك في الاختبار التفاعلي (10 أسئلة هيكلي + 10 أسئلة عصبي) - سادس ابتدائي!<br>مع شهادة تقدير نهائية وصوت التصفيق الأصلي 👏</p>
       <button class="btn" onclick="startQuiz()">ابدأ الاختبار الآن</button>
     </div>
 
@@ -208,13 +208,13 @@
   </div>
 
   <script>
-    // استخدام الملف الصوتي الأصلي الذي أرسلته تماماً وبدون أي تعديل على السرعة أو النبرة
-    const originalAudio = new Audio('https://actions.google.com/sounds/v1/crowds/human_applause.ogg');
-    originalAudio.volume = 1.0;
+    // --- ربط المسار المحلي الصحيح لملف الصوت تماماً كما طلبته ---
+    const applauseAudio = new Audio('Oi/Applause-3-chosic.com_-1(chosic.com).mp3');
+    applauseAudio.volume = 1.0;
 
-    function playOriginalSound() {
-      originalAudio.currentTime = 0;
-      originalAudio.play().catch(e => {
+    function playApplause() {
+      applauseAudio.currentTime = 0;
+      applauseAudio.play().catch(e => {
         console.log("Audio play error:", e);
       });
     }
@@ -300,7 +300,7 @@
         btn.querySelector('.btn-icon').innerText = '✅';
         const randomHappy = happyEmojis[Math.floor(Math.random() * happyEmojis.length)];
         reactionDiv.innerText = `${randomHappy} إجابة صحيحة! أحسنت يا بطل!`;
-        playOriginalSound(); // تشغيل الصوت الأصلي بدون أي تعديل
+        playApplause(); // تشغيل الصوت المحلي بالمسار الصحيح
         score++;
       } else {
         btn.classList.add('wrong');
@@ -323,7 +323,7 @@
     }
 
     function showResults() {
-      playOriginalSound(); // تشغيل الصوت الأصلي عند نهاية التحدي
+      playApplause(); // تشغيل الصوت المحلي عند إنهاء التحدي
       document.getElementById('quiz-screen').classList.add('hidden');
       document.getElementById('result-screen').classList.remove('hidden');
       document.getElementById('score-text').innerText = `لقد حصلت على ${score} من ${questions.length} درجة!`;
