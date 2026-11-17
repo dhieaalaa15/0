@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>اختبار العلوم التفاعلي | بواسطة مبرمج ضياء</title>
+  <title>اختبار العلوم التفاعلي</title>
   <link rel="icon" type="image/png" href="https://img.icons8.com/emoji/96/test-tube-emoji.png">
   <style>
     :root {
@@ -177,7 +177,6 @@
     <!-- شاشة الترحيب واختيار القسم -->
     <div id="welcome-screen">
       <h1>🧠 أبطال العلوم 🦴</h1>
-      <div class="by-tag">✨ تطوير: مبرمج ضياء ✨</div>
       <p>أهلاً بك في الاختبار التفاعلي للصف السادس الابتدائي!<br>اختر الجهاز الذي تريد اختبار معلوماتك فيه:</p>
       
       <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -202,7 +201,7 @@
         <p style="margin: 10px 0; font-size: 1rem;">تمنح هذه الشهادة للبطل المشارك لاجتيازه اختبار مادة العلوم بنجاح.</p>
         <p id="score-text" style="font-size: 1.3rem; color: #a7f3d0; font-weight: bold; margin: 15px 0;"></p>
         <div style="font-size: 0.85rem; color: var(--text-muted); border-top: 1px dashed var(--border-color); padding-top: 10px; margin-top: 10px;">
-          معلم المادة: <strong>ايهاب امجاد</strong> | تطوير: <strong>مبرمج ضياء</strong>
+          معلم المادة: <strong>الأسطورة</strong>
         </div>
       </div>
       <button class="btn" onclick="resetToHome()" style="margin-top: 20px;">العودة للقائمة الرئيسية</button>
@@ -210,7 +209,7 @@
 
     <!-- الحقوق -->
     <div class="rights">
-      تطوير وبواسطة: <strong>مبرمج ضياء</strong> | معلم المادة: <strong>ايهاب امجاد</strong>
+      معلم المادة: <strong>الأسطورة</strong>
     </div>
   </div>
 
@@ -325,7 +324,7 @@
         btn.classList.add('correct');
         btn.querySelector('.btn-icon').innerText = '✅';
         const randomHappy = happyEmojis[Math.floor(Math.random() * happyEmojis.length)];
-        reactionDiv.innerText = `${randomHappy} إجابة صحيحة! أحسنت يا بطل!`;
+        reactionDiv.innerText = `${randomHappy} إجابة صحيحة! أحسنت!`;
         playApplause(); // تشغيل الصوت المحلي
         score++;
       } else {
